@@ -1,0 +1,30 @@
+Git status
+git@github.com:elfnp3/partnerapi.git
+
+Task 3
+The 'partnerapi' project that Eddie worked on uses Docker. Gather the full docker command line that Eddie used to start the 'partnerapi' project on his workstation.
+docker compose up
+
+Task 4
+
+Eddie had been testing automated static application security testing (SAST) in GitHub. Vulnerability reports have been coming into Splunk in JSON format via GitHub webhooks. Search all the events in the main index in Splunk and use the sourcetype field to locate these reports. Determine the URL of the vulnerable GitHub repository that the elves cloned for testing and document it here. You will need to search outside of Splunk (try GitHub) for the original name of the repository.
+https://github.com/snoopysecurity/dvws-node
+Task 5
+Santa asked Eddie to add a JavaScript library from NPM to the 'partnerapi' project. Determine the name of the library and record it here for our workshop documentation.
+holiday-utils-js
+Task 6
+
+Another elf started gathering a baseline of the network activity that Eddie generated. Start with their search and capture the full process_name field of anything that looks suspicious.
+/usr/bin/nc.openbsd
+Task 7
+Uh oh. This documentation exercise just turned into an investigation. Starting with the process identified in the previous task, look for additional suspicious commands launched by the same parent process. One thing to know about these Sysmon events is that Network connection events don't indicate the parent process ID, but Process creation events do! Determine the number of files that were accessed by a related process and record it here.
+
+*  ParentProcessId=6788
+6
+Task 8
+
+Use Splunk and Sysmon Process creation data to identify the name of the Bash script that accessed sensitive files and (likely) transmitted them to a remote IP address.
+Preinstall.sh
+
+Solution:
+Thank you for helping Santa complete his investigation! Santa says you're a whiz!
