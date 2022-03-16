@@ -1,0 +1,63 @@
+// Note: For this lab, we will be working with QRP Corporation's CQC-11 FPGA.
+// The CQC-11 operates with a 125MHz clock.
+// Your design for a tone generator must support the following 
+// inputs/outputs:
+// (NOTE: DO NOT CHANGE THE NAMES. OUR AUTOMATED GRADING TOOL
+// REQUIRES THE USE OF THESE NAMES!)
+// input clk - this will be connected to the 125MHz system clock
+// input rst - this will be connected to the system board's reset bus
+// input freq - a 32 bit integer indicating the required frequency
+//              (0 - 9999.99Hz) formatted as follows:
+//              32'hf1206 or 32'd987654 = 9876.54Hz
+// output wave_out - a square wave output of the desired frequency
+// you can create whatever other variables you need, but remember
+// to initialize them to something!
+module tone_generator (
+    input clk,
+    input rst,
+    input [31:0] freq,
+    output wave_out
+);
+    // ---- DO NOT CHANGE THE CODE ABOVE THIS LINE ---- 
+    // ---- IT IS NECESSARY FOR AUTOMATED ANALYSIS ----
+    // TODO: Add your code below. 
+    // Remove the following line and add your own implementation. 
+    // Note: It's silly, but it compiles...
+    reg [31:0] CLOCK_FREQ = 125000000;
+    reg [31:0] counter =0;
+    reg [31:0] orig_counter=0;
+    
+    reg sq_wave_reg = 0;
+    reg [31:0] freq_calc=0;
+    assign wave_out = sq_wave_reg;
+    always @(posedge clk or posedge rst)
+    begin
+        if (rst==1)
+            begin               
+                if (($rtoi(freq * 10) - ($rtoi(freq) * 10)) > 4)
+                    freq_calc <= $rtoi(freq) +1;
+                else
+                    freq_calc <= $rtoi(freq);              
+               //freq_calc <=440487;               
+                counter <= CLOCK_FREQ/(freq_calc/50);               
+                
+               // counter <= CLOCK_FREQ/freq*50;
+               if ($rtoi(counter*10) - ($rtoi(counter)*10)>4)
+                    orig_counter <= ($rtoi(counter))+1;
+                else
+                    orig_counter <= $rtoi(counter);
+                sq_wave_reg <=  1;
+                //counter <= $rtoi(counter);;
+            end
+        else
+            begin
+                if (counter == 0)
+                    begin
+                        sq_wave_reg <= ~ sq_wave_reg;
+                        counter <= orig_counter - 1;
+                    end
+                else
+                    counter <=counter - 1;
+            end
+    end
+endmodule
