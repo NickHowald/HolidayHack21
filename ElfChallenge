@@ -1,0 +1,10 @@
+import elf, munchkins, levers, lollipops, yeeters, pits
+all_lollipops = lollipops.get()
+munch=munchkins.get()
+q=munch[0].ask()
+for lollipop in all_lollipops:
+    elf.moveTo(lollipop.position)
+elf.moveTo(munch[0].position)
+munch[0].answer(list(q.keys())[list(q.values()).index("lollipop")])
+elf.moveRight(1)
+elf.moveUp(4)
